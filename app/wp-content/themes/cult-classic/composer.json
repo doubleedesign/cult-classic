@@ -1,0 +1,19 @@
+{
+	"name": "doubleedesign/cult-classic",
+	"type": "wordpress-theme",
+	"description": "Custom WordPress theme",
+	"version": "1.0.0",
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"authors": [
+		{
+			"name": "Leesa Ward",
+			"email": "leesa@doubleedesign.com.au"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Doubleedesign\\CultClassic\\": "src"
+		}
+	}
+}

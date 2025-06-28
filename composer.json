@@ -1,0 +1,145 @@
+{
+	"name": "doubleedesign/cult-classic",
+	"description": "Boilerplate for ClassicPress sites",
+	"type": "project",
+	"version": "1.0.0",
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"authors": [
+		{
+			"name": "Leesa Ward",
+			"email": "leesa@doubleedesign.com.au"
+		}
+	],
+	"require": {
+		"php": "^8.3",
+		"classicpress/classicpress": "^2.4.1",
+		"composer/installers": "^2.0",
+		"doubleedesign/comet-canvas-classic": "*",
+		"doubleedesign/comet-plugin-acf": "*",
+		"doubleedesign/acf-dynamic-preview": "*",
+		"doubleedesign/doublee-breadcrumbs": "dev-main",
+		"doubleedesign/doublee-base-plugin": "dev-master",
+		"doubleedesign/classicpress-plugin-compatibility-override": "dev-master",
+		"doubleedesign/classicpress-plugin-dependencies": "dev-master",
+		"doubleedesign/doublee-classicpress-polyfills": "dev-master",
+		"wpackagist-plugin/simply-disable-comments":"^0.2",
+		"wpackagist-plugin/simple-page-ordering": "2.7.4"
+	},
+	"require-dev": {
+		"doubleedesign/doublee-local-dev": "dev-master"
+	},
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://wpackagist.org"
+		},
+		{
+			"type": "path",
+			"url": "../acf-dynamic-preview",
+			"options": {
+				"symlink": true
+			}
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/doubleedesign/acf-dynamic-preview.git"
+		},
+		{
+			"type": "path",
+			"url": "../comet-components/packages/comet-plugin-acf",
+			"options": {
+				"symlink": true
+			}
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/doubleedesign/comet-plugin-acf.git"
+		},
+		{
+			"type": "path",
+			"url": "../comet-components/packages/comet-canvas-classic",
+			"options": {
+				"symlink": true
+			}
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/doubleedesign/comet-canvas-classic.git"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/doubleedesign/doublee-breadcrumbs.git"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/doubleedesign/doublee-base-plugin.git"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/doubleedesign/classicpress-plugin-compatibility-override.git"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/doubleedesign/classicpress-plugin-dependencies.git"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/doubleedesign/doublee-classicpress-polyfills.git"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/doubleedesign/doublee-local-dev.git"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/doubleedesign/baguetteBox.js"
+		}
+	],
+	"extra": {
+		"installer-paths": {
+			"app/wp-content/plugins/{$name}/": [
+				"type:wordpress-plugin"
+			],
+			"app/wp-content/themes/{$name}/": [
+				"type:wordpress-theme"
+			]
+		}
+	},
+	"config": {
+		"optimize-autoloader": true,
+		"allow-plugins": {
+			"composer/installers": true,
+			"johnpbloch/wordpress-core-installer": true
+		}
+	},
+	"scripts": {
+		"post-install-cmd": [
+			"@subproject-install",
+			"@move-classicpress",
+			"@delete-default-themes"
+		],
+		"post-update-cmd": [
+			"@subproject-install",
+			"@move-classicpress",
+			"@delete-default-themes"
+		],
+		"move-classicpress": [
+			"powershell -Command \"if (Test-Path wordpress) { Write-Host 'Moving ClassicPress files...'; robocopy wordpress app /E /MOVE; if (Test-Path wordpress) { Remove-Item wordpress -Recurse -Force } }\""
+		],
+		"delete-default-themes": [
+			"powershell -Command \"Write-Host 'Deleting default themes...'; Remove-Item app/wp-content/themes/twenty* -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item app/wp-content/themes/the-classicpress-theme -Recurse -Force -ErrorAction SilentlyContinue; Remove-Item app/wp-content/themes/classicpress-twentyseventeen -Recurse -Force -ErrorAction SilentlyContinue\""
+		],
+		"subproject-install": [
+			"cd app/wp-content/plugins/acf-dynamic-preview && composer install --no-dev && composer dump-autoload -o",
+			"cd app/wp-content/plugins/comet-plugin-acf && composer install --no-dev && composer dump-autoload -o",
+			"cd app/wp-content/plugins/doublee-breadcrumbs && composer install --no-dev && composer dump-autoload -o",
+			"cd app/wp-content/plugins/doublee-base-plugin && composer install && composer dump-autoload -o",
+			"cd app/wp-content/plugins/classicpress-plugin-compatibility-override  && composer install --no-dev && composer dump-autoload -o",
+			"cd app/wp-content/plugins/classicpress-plugin-dependencies && composer install --no-dev && composer dump-autoload -o",
+			"cd app/wp-content/plugins/doublee-classicpress-polyfills && composer install --no-dev && composer dump-autoload -o",
+			"cd app/wp-content/themes/comet-canvas-classic && composer install --no-dev && composer dump-autoload -o",
+			"cd app/wp-content/themes/cult-classic && composer install --no-dev && composer dump-autoload -o"
+		]
+	}
+}

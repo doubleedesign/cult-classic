@@ -1,0 +1,37 @@
+debug.log
+app/.rnd
+.rnd
+
+# Root vendor directory as it should only be dev tools
+/vendor/
+
+# ClassicPress core files
+app/wp-admin/
+app/wp-includes/
+app/wp-*.php
+app/xmlrpc.php
+app/license.txt
+app/readme.html
+app/index.php
+app/composer.json
+
+# Local dev site stuff not to be committed to the boilerplate repo
+app/wp-content/uploads/
+app/wp-content/plugins/cp-pepper
+app/wp-content/plugins/advanced-custom-fields-pro
+app/wp-content/languages
+app/wp-content/upgrade
+
+# Ignore symlinked themes and plugins and those managed by Composer
+app/wp-content/themes/comet-canvas-classic
+app/wp-content/plugins/comet-plugin-acf
+app/wp-content/plugins/acf-advanced-image-field
+app/wp-content/plugins/acf-dynamic-preview
+app/wp-content/plugins/classicpress-plugin-compatibility-override
+app/wp-content/plugins/classicpress-plugin-dependencies
+app/wp-content/plugins/doublee-base-plugin
+app/wp-content/plugins/doublee-breadcrumbs
+app/wp-content/plugins/doublee-classicpress-polyfills
+app/wp-content/plugins/doublee-local-dev
+app/wp-content/plugins/simply-disable-comments
+app/wp-content/plugins/simple-page-ordering
